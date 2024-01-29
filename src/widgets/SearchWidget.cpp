@@ -17,12 +17,12 @@ static const int kMaxTooltipHexdumpBytes = 64;
 }
 
 static const QMap<QString, QString> searchBoundaries {
-    { "io.maps", "All maps" },
-    { "io.map", "Current map" },
-    { "raw", "Raw" },
-    { "block", "Current block" },
-    { "bin.section", "Current mapped section" },
-    { "bin.sections", "All mapped sections" },
+    { "io.maps", QObject::tr("All maps") },
+    { "io.map", QObject::tr("Current map") },
+    { "raw", QObject::tr("Raw") },
+    { "block", QObject::tr("Current block") },
+    { "bin.section", QObject::tr("Current mapped section") },
+    { "bin.sections", QObject::tr("All mapped sections") },
 };
 
 static const QMap<QString, QString> searchBoundariesDebug { { "dbg.maps", "All memory maps" },

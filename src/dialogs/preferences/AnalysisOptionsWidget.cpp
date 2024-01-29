@@ -9,12 +9,12 @@
 #include "core/MainWindow.h"
 
 static const QHash<QString, QString> analysisBoundaries {
-    { "io.maps.x", "All executable maps" },
-    { "io.maps", "All maps" },
-    { "io.map", "Current map" },
-    { "raw", "Raw" },
-    { "bin.section", "Current mapped section" },
-    { "bin.sections", "All mapped sections" },
+    { "io.maps.x", QObject::tr("All executable maps") },
+    { "io.maps", QObject::tr("All maps") },
+    { "io.map", QObject::tr("Current map") },
+    { "raw", QObject::tr("Raw") },
+    { "bin.section", QObject::tr("Current mapped section") },
+    { "bin.sections", QObject::tr("All mapped sections") },
 };
 
 AnalysisOptionsWidget::AnalysisOptionsWidget(PreferencesDialog *dialog)
