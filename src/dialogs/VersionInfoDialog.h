@@ -18,6 +18,12 @@ public:
     explicit VersionInfoDialog(QWidget *parent = nullptr);
     ~VersionInfoDialog();
 
+private slots:
+    void CopyTreeWidgetSelection(QTreeWidget *t);
+
+protected:
+    void contextMenuEvent(QContextMenuEvent *event) override;
+
 private:
     std::unique_ptr<Ui::VersionInfoDialog> ui;
     CutterCore *core;

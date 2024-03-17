@@ -8,6 +8,8 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QTreeWidget>
+#include <QContextMenuEvent>
+#include <QClipboard>
 
 VersionInfoDialog::VersionInfoDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::VersionInfoDialog), core(Core())
@@ -20,6 +22,41 @@ VersionInfoDialog::VersionInfoDialog(QWidget *parent)
 }
 
 VersionInfoDialog::~VersionInfoDialog() {}
+
+void VersionInfoDialog::CopyTreeWidgetSelection(QTreeWidget *t)
+{    
+    const int keyColumnIndex = 0, valueColumnIndex = 1;    
+    QString vinfo, row;
+
+    for(QTreeWidgetItem *x: t->selectedItems()){
+        row = x->text(keyColumnIndex) + " = " + x->text(valueColumnIndex) + "\n";
+        vinfo.append(row);
+    }
+
+    QClipboard *clipboard = QApplication::clipboard();
+    clipboard->setText(vinfo.trimmed());
+}
+
+void VersionInfoDialog::contextMenuEvent(QContextMenuEvent *event){
+    QAction *copyAction = new QAction(tr("Copy"), this);    
+    copyAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    copyAction->setShortcut(QKeySequence::Copy);
+
+    connect(copyAction, &QAction::triggered, this, [this](){
+        if(ui->rightTreeWidget->hasFocus()){
+            CopyTreeWidgetSelection(ui->rightTreeWidget);
+        }
+        else if(ui->leftTreeWidget->hasFocus()){
+            CopyTreeWidgetSelection(ui->leftTreeWidget);
+        }
+    });
+
+    QMenu menu(this);
+    menu.addAction(copyAction);
+    menu.exec(event->globalPos());
+
+    addAction(copyAction);
+}
 
 void VersionInfoDialog::fillVersionInfo()
 {
